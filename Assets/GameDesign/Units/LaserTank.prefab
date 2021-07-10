@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5206992608228372037}
   - component: {fileID: 3376377521155347057}
   m_Layer: 0
-  m_Name: Player
+  m_Name: LaserTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

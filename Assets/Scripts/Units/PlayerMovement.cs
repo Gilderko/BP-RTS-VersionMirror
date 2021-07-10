@@ -44,7 +44,7 @@ public class PlayerMovement : NetworkBehaviour
             return; 
         }
         Debug.Log("moving1");
-        if (!Mouse.current.rightButton.wasPressedThisFrame)
+        if (!Mouse.current.leftButton.wasPressedThisFrame)
         {
             return;
         }
