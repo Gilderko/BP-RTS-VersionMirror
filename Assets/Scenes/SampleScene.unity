@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 8ca7cda71ef9f9d46b8ab83fbd587fae, type: 2}
 --- !u!1 &50925083
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +137,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &50925084
 Transform:
@@ -172,7 +172,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!65 &335715430
 BoxCollider:
@@ -261,21 +261,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3505656756578814529, guid: b26e0919419956847abde61489c55a7d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.18
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.67
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -321,8 +325,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 637345015}
-  - component: {fileID: 637345014}
   - component: {fileID: 637345013}
+  - component: {fileID: 637345014}
   - component: {fileID: 637345016}
   m_Layer: 0
   m_Name: NetworkManager
@@ -363,7 +367,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 637345012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Script: {fileID: 11500000, guid: f632ece96f2cc774898a06bdb1e99fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
@@ -383,7 +387,7 @@ MonoBehaviour:
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 5859314376764323193, guid: e9f000bf4d8860d46b62c922f7f3441c, type: 3}
   autoCreatePlayer: 1
-  playerSpawnMethod: 1
+  playerSpawnMethod: 0
   spawnPrefabs: []
 --- !u!4 &637345015
 Transform:
@@ -473,21 +477,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3505656756578814529, guid: b26e0919419956847abde61489c55a7d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.18
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.33
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -535,21 +543,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 3505656756578814529, guid: b26e0919419956847abde61489c55a7d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.18
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.67
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -739,8 +751,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: 0.00010799765, y: 0.9336552, z: -0.358173, w: 0.0002811891}
-  m_LocalPosition: {x: -1.9096899, y: 6.508306, z: 6.197851}
+  m_LocalRotation: {x: 0.0006038906, y: 0.94147587, z: -0.33707568, w: 0.0016863504}
+  m_LocalPosition: {x: -0.22011995, y: 8.855201, z: 12.503307}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -792,7 +804,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2079950244
 Transform:
@@ -916,21 +928,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cube
       objectReference: {fileID: 0}
+    - target: {fileID: 3505656756578814529, guid: b26e0919419956847abde61489c55a7d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.18
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.33
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3505656756578814530, guid: b26e0919419956847abde61489c55a7d, type: 3}
       propertyPath: m_LocalRotation.w
