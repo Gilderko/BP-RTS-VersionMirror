@@ -60,4 +60,9 @@ public class UnitSelectionHandler : MonoBehaviour
             selectedUnit.Select();
         }
     }
+
+    public IEnumerable<Unit> GetSelectedUnits()
+    {
+        return selectedUnits;
+    }
 }

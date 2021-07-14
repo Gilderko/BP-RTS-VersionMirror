@@ -10,7 +10,15 @@ public class Unit : NetworkBehaviour
 
     [SerializeField] private UnityEvent onDeselected = null;
 
+    [SerializeField] private UnitMovement unitMovement = null;
+
     #region Client
+
+    [Client]
+    public UnitMovement GetUnitMovement()
+    {
+        return unitMovement;
+    }
 
     [Client]
     public void Select()
