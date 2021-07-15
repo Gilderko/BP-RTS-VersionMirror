@@ -106,5 +106,11 @@ public class RTSPlayer : NetworkBehaviour
         myUnits.Remove(unit);
     }
 
+    [Client]
+    public IEnumerable<Unit> GetMyUnits()
+    {
+        return myUnits;
+    }
+
     #endregion
 }
