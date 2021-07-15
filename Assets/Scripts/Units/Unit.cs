@@ -7,9 +7,11 @@ using System;
 
 public class Unit : NetworkBehaviour
 {
-    [SerializeField] private UnityEvent onSelected = null;
-    [SerializeField] private UnityEvent onDeselected = null;
     [SerializeField] private UnitMovement unitMovement = null;
+    [SerializeField] private Targeter targeter = null;
+
+    [SerializeField] private UnityEvent onSelected = null;
+    [SerializeField] private UnityEvent onDeselected = null;    
 
     public static event Action<Unit> ServerOnUnitSpawned;
     public static event Action<Unit> ServerOnUnitDespawned;
@@ -61,6 +63,12 @@ public class Unit : NetworkBehaviour
     public UnitMovement GetUnitMovement()
     {
         return unitMovement;
+    }
+
+    [Client]
+    public Targeter GetTargeter()
+    {
+        return targeter;
     }
 
     [Client]
