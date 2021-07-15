@@ -22,13 +22,13 @@ public class Unit : NetworkBehaviour
     [Server]
     public override void OnStartServer()
     {
-        ServerOnUnitSpawned(this);
+        ServerOnUnitSpawned?.Invoke(this);
     }
 
     [Server]
     public override void OnStopServer()
     {
-        ServerOnUnitDespawned(this);
+        ServerOnUnitDespawned?.Invoke(this);
     }
 
     #endregion
