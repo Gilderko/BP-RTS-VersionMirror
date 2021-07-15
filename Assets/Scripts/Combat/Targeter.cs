@@ -13,6 +13,7 @@ public class Targeter : NetworkBehaviour
     public void CmdSetTarget(GameObject targetGameObject)
     {
         Targetable newTarget;
+        Debug.Log("setting target");
         if (!targetGameObject.TryGetComponent<Targetable>(out newTarget))
         {
             return;
@@ -32,5 +33,10 @@ public class Targeter : NetworkBehaviour
     #region Client
 
     #endregion
+
+    public Targetable GetTarget()
+    {
+        return target;
+    }
 
 }

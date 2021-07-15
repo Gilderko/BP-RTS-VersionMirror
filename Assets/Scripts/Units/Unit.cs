@@ -60,18 +60,6 @@ public class Unit : NetworkBehaviour
     }
 
     [Client]
-    public UnitMovement GetUnitMovement()
-    {
-        return unitMovement;
-    }
-
-    [Client]
-    public Targeter GetTargeter()
-    {
-        return targeter;
-    }
-
-    [Client]
     public void Select()
     {
         if (!hasAuthority)
@@ -91,7 +79,17 @@ public class Unit : NetworkBehaviour
         }
 
         onDeselected.Invoke();
-    }  
+    }
 
     #endregion
+
+    public UnitMovement GetUnitMovement()
+    {
+        return unitMovement;
+    }
+
+    public Targeter GetTargeter()
+    {
+        return targeter;
+    }
 }

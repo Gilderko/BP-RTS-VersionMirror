@@ -11,15 +11,15 @@ public class Targetable : NetworkBehaviour
 
     #endregion
 
-    #region Client
+    #region Client   
 
-    [Client]
+
+    #endregion
+
     public Transform GetAimAtPoint()
     {
         return aimAtPoint;
     }
-
-    #endregion
 
 
 }
