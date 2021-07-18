@@ -21,14 +21,24 @@ public class UnitSelectionHandler : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+        Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
+    }
+
+    private void OnDestroy()
+    {
+        Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
+    }
+
+    private void AuthorityHandleUnitDespawned(Unit unit)
+    {
+        selectedUnits.Remove(unit);
     }
 
     private void Update()
     {
-        if (player == null) // Fix this in a better way this is ugly
+        if (player == null && !NetworkClient.connection.identity.TryGetComponent<RTSPlayer>(out player)) // Fix this in a better way this is ugly
         {
-            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+            return;
         }
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
