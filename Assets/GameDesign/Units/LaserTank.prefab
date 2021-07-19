@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: -607669105677590561}
   - component: {fileID: 6722542049949842946}
   - component: {fileID: 4589002775630475943}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LaserTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
