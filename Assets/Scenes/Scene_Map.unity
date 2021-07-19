@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 335715432}
   - component: {fileID: 335715431}
   - component: {fileID: 335715430}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ MonoBehaviour:
   unitSelectionArea: {fileID: 1442478433}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
 --- !u!4 &368001094
 Transform:
   m_ObjectHideFlags: 0
@@ -314,7 +314,7 @@ MonoBehaviour:
   unitSelectionHandler: {fileID: 368001093}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1281
 --- !u!1001 &609819678
 PrefabInstance:
   m_ObjectHideFlags: 0
