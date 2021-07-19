@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2258145404371899144, guid: 427d8cbb5e538e44e85450422df01475, type: 3}
+      propertyPath: onlineScene
+      value: Assets/Scenes/Scene_Map.unity
+      objectReference: {fileID: 0}
     - target: {fileID: 2258145404371899145, guid: 427d8cbb5e538e44e85450422df01475, type: 3}
       propertyPath: m_RootOrder
       value: 2
