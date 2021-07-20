@@ -7,10 +7,24 @@ using UnityEngine;
 
 public class RTSPlayer : NetworkBehaviour
 {
-    [SerializeField] private Building[] buildings = new Building[0];
+    [SerializeField] 
+    private Building[] buildings = new Building[0];
 
-    [SerializeField] private List<Unit> myUnits = new List<Unit>();
-    [SerializeField] private List<Building> myBuildings = new List<Building>();
+    [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] 
+    private int resources = 500;
+
+    public event Action<int> ClientOnResourcesUpdated;
+
+    [SerializeField] 
+    private List<Unit> myUnits = new List<Unit>();
+
+    [SerializeField] 
+    private List<Building> myBuildings = new List<Building>();
+
+    public int GetResources()
+    {
+        return resources;
+    }
 
     public IEnumerable<Unit> GetMyUnits()
     {
@@ -84,6 +98,13 @@ public class RTSPlayer : NetworkBehaviour
 
         myUnits.Remove(unit);
     }
+
+    [Server]
+    public void AddResources(int resourcesToAdd)
+    {
+        resources += resourcesToAdd;
+    }
+
 
     [Command]
     public void CmdTryPlaceBuilding(int buildingID, Vector3 positionToSpawn)
@@ -162,5 +183,11 @@ public class RTSPlayer : NetworkBehaviour
     {
         myUnits.Remove(unit);
     } 
+
+    [Client]
+    private void ClientHandleResourcesUpdated(int oldValue, int newValue)
+    {
+        ClientOnResourcesUpdated?.Invoke(newValue);
+    }
     #endregion
 }
