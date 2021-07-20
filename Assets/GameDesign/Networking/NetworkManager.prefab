@@ -91,6 +91,7 @@ MonoBehaviour:
   - {fileID: 4538862654306239700, guid: 15e90b0019d52b34d98aa4678a1a18a6, type: 3}
   - {fileID: 4482481897922476592, guid: a72e82f852b74654b81d61cd593ecf4f, type: 3}
   - {fileID: 4667478445363654578, guid: 51225ebfc2af578448f3b05f4bdfd2ec, type: 3}
+  - {fileID: 4538862654306239700, guid: 4b3e5a13853b6ee44b2e86e4aa1190e1, type: 3}
   unitSpawnerPrefab: {fileID: 4538862654306239700, guid: 15e90b0019d52b34d98aa4678a1a18a6, type: 3}
   gameOverHandler: {fileID: 1273161702178869714, guid: 51225ebfc2af578448f3b05f4bdfd2ec, type: 3}
 --- !u!114 &2258145404371899142

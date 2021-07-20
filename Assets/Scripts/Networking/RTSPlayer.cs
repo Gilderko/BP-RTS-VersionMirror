@@ -2,10 +2,13 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RTSPlayer : NetworkBehaviour
 {
+    [SerializeField] private Building[] buildings = new Building[0];
+
     [SerializeField] private List<Unit> myUnits = new List<Unit>();
     [SerializeField] private List<Building> myBuildings = new List<Building>();
 
@@ -81,6 +84,24 @@ public class RTSPlayer : NetworkBehaviour
 
         myUnits.Remove(unit);
     }
+
+    [Command]
+    public void CmdTryPlaceBuilding(int buildingID, Vector3 positionToSpawn)
+    {
+        Debug.Log(buildingID);
+        Debug.Log(buildings.Count());
+
+        Building buildingToPlace = buildings.First(build => build.GetID() == buildingID);
+
+        if (buildingToPlace == null)
+        {
+            return;
+        }
+
+        GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity);
+        NetworkServer.Spawn(building, connectionToClient);
+    }
+
 
     #endregion
 
