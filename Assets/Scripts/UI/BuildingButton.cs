@@ -12,9 +12,13 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Building representedBuilding = null;
     [SerializeField] private Image iconMage = null;
     [SerializeField] private TextMeshProUGUI priceText = null;
-    [SerializeField] private LayerMask floorMask = new LayerMask();    
+    [SerializeField] private LayerMask floorMask = new LayerMask();
+
+    [SerializeField] private Color canPlaceColor = new Color();
+    [SerializeField] private Color canNotPlaceColor = new Color();
 
     private Camera mainCamera;
+    private BoxCollider buildingCollider;
     private RTSPlayer player;
     private GameObject buildingPreviewInstance;
     private Renderer buildingRendererInstance;
@@ -24,6 +28,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
         mainCamera = Camera.main;
         iconMage.sprite = representedBuilding.GetIcon();
         priceText.text = representedBuilding.GetPrice().ToString();
+        buildingCollider = representedBuilding.GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -66,12 +71,21 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
             {
                 buildingPreviewInstance.SetActive(true);
             }
+
+            Color color = player.CanPlaceBuilding(buildingCollider, hit.point) ? canPlaceColor : canNotPlaceColor;
+
+            buildingRendererInstance.material.SetColor("_BaseColor", canPlaceColor);
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button != PointerEventData.InputButton.Left)
+        {
+            return;
+        }
+
+        if (player.GetResources() < representedBuilding.GetPrice())
         {
             return;
         }

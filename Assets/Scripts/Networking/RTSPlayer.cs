@@ -7,8 +7,14 @@ using UnityEngine;
 
 public class RTSPlayer : NetworkBehaviour
 {
+    [SerializeField]
+    private LayerMask buildingBlockLayer = new LayerMask();
+
     [SerializeField] 
     private Building[] buildings = new Building[0];
+
+    [SerializeField]
+    private float buildingRangeLimit = 5f;
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] 
     private int resources = 500;
@@ -19,22 +25,7 @@ public class RTSPlayer : NetworkBehaviour
     private List<Unit> myUnits = new List<Unit>();
 
     [SerializeField] 
-    private List<Building> myBuildings = new List<Building>();
-
-    public int GetResources()
-    {
-        return resources;
-    }
-
-    public IEnumerable<Unit> GetMyUnits()
-    {
-        return myUnits;
-    }
-
-    public IEnumerable<Building> GetMyBuildings()
-    {
-        return myBuildings;
-    }
+    private List<Building> myBuildings = new List<Building>();    
 
     #region Server
 
@@ -119,10 +110,23 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
+        if (resources < buildingToPlace.GetPrice())
+        {
+            return;
+        }
+
+        BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();        
+
+        if (!CanPlaceBuilding(buildingCollider, positionToSpawn))
+        {
+            return;
+        }
+
         GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity);
         NetworkServer.Spawn(building, connectionToClient);
-    }
 
+        AddResources(-buildingToPlace.GetPrice());
+    }
 
     #endregion
 
@@ -190,4 +194,39 @@ public class RTSPlayer : NetworkBehaviour
         ClientOnResourcesUpdated?.Invoke(newValue);
     }
     #endregion
+
+    public int GetResources()
+    {
+        return resources;
+    }
+
+    public IEnumerable<Unit> GetMyUnits()
+    {
+        return myUnits;
+    }
+
+    public IEnumerable<Building> GetMyBuildings()
+    {
+        return myBuildings;
+    }
+
+    public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 positionToSpawn)
+    {
+        if (Physics.CheckBox(positionToSpawn + buildingCollider.center,
+            buildingCollider.size / 2, Quaternion.identity,
+            buildingBlockLayer))
+        {
+            return false;
+        }
+
+        foreach (Building build in myBuildings)
+        {
+            if ((positionToSpawn - build.transform.position).sqrMagnitude <= buildingRangeLimit * buildingRangeLimit)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
