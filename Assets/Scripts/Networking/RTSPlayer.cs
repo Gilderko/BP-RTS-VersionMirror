@@ -21,6 +21,8 @@ public class RTSPlayer : NetworkBehaviour
 
     public event Action<int> ClientOnResourcesUpdated;
 
+    private Color teamColor = new Color();
+
     [SerializeField] 
     private List<Unit> myUnits = new List<Unit>();
 
@@ -96,6 +98,11 @@ public class RTSPlayer : NetworkBehaviour
         resources += resourcesToAdd;
     }
 
+    [Server]
+    public void SetTeamColor(Color newColor)
+    {
+        teamColor = newColor;
+    }
 
     [Command]
     public void CmdTryPlaceBuilding(int buildingID, Vector3 positionToSpawn)
@@ -146,7 +153,7 @@ public class RTSPlayer : NetworkBehaviour
         Unit.AuthorityOnUnitSpawned += AuthorityHandleUnitSpawned;
         Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
         Building.AuthorityOnBuildingSpawned += AuthorityHandleBuildingSpawned;
-        Building.AuthorityOnBuildingSpawned += AuthorityHandleBuildingDespawned;
+        Building.AuthorityOnBuildingDespawned += AuthorityHandleBuildingDespawned;
     }
 
     [Client]
@@ -174,7 +181,7 @@ public class RTSPlayer : NetworkBehaviour
         Unit.AuthorityOnUnitSpawned -= AuthorityHandleUnitSpawned;
         Unit.AuthorityOnUnitDespawned -= AuthorityHandleUnitDespawned;
         Building.AuthorityOnBuildingSpawned -= AuthorityHandleBuildingSpawned;
-        Building.AuthorityOnBuildingSpawned -= AuthorityHandleBuildingDespawned;
+        Building.AuthorityOnBuildingDespawned -= AuthorityHandleBuildingDespawned;
     }
 
     [Client]
@@ -236,5 +243,10 @@ public class RTSPlayer : NetworkBehaviour
         Debug.Log("Isnt close enough");
 
         return false;
+    }
+
+    public Color GetTeamColor()
+    {
+        return teamColor;
     }
 }
