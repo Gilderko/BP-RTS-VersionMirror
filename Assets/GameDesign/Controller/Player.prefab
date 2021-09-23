@@ -65,7 +65,7 @@ MonoBehaviour:
   syncInterval: 0.1
   buildingBlockLayer:
     serializedVersion: 2
-    m_Bits: 449
+    m_Bits: 448
   buildings:
   - {fileID: 2937095489845318159, guid: 4b3e5a13853b6ee44b2e86e4aa1190e1, type: 3}
   - {fileID: 2937095489845318159, guid: 74be5843e39fcd5449f244d1618ef674, type: 3}

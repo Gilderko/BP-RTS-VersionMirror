@@ -14,7 +14,7 @@ public class RTSPlayer : NetworkBehaviour
     private Building[] buildings = new Building[0];
 
     [SerializeField]
-    private float buildingRangeLimit = 5f;
+    private float buildingRangeLimit = 10f;
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] 
     private int resources = 500;
@@ -45,7 +45,7 @@ public class RTSPlayer : NetworkBehaviour
     {
         if (building.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
 
-        myBuildings.Add(building);
+        myBuildings.Remove(building);
     }
 
     [Server]
@@ -53,7 +53,7 @@ public class RTSPlayer : NetworkBehaviour
     {
         if (building.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
 
-        myBuildings.Remove(building);
+        myBuildings.Add(building);
     }
 
     [Server]
@@ -100,9 +100,7 @@ public class RTSPlayer : NetworkBehaviour
     [Command]
     public void CmdTryPlaceBuilding(int buildingID, Vector3 positionToSpawn)
     {
-        Debug.Log(buildingID);
-        Debug.Log(buildings.Count());
-
+       
         Building buildingToPlace = buildings.First(build => build.GetID() == buildingID);
 
         if (buildingToPlace == null)
@@ -110,11 +108,13 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
+        Debug.Log("Found building");
         if (resources < buildingToPlace.GetPrice())
         {
             return;
         }
 
+        Debug.Log("Got money");
         BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();        
 
         if (!CanPlaceBuilding(buildingCollider, positionToSpawn))
@@ -122,6 +122,7 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
+        Debug.Log("Can Place building");
         GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity);
         NetworkServer.Spawn(building, connectionToClient);
 
@@ -151,7 +152,7 @@ public class RTSPlayer : NetworkBehaviour
     [Client]
     private void AuthorityHandleBuildingDespawned(Building building)
     {
-        myBuildings.Add(building);
+        myBuildings.Remove(building);
     }
 
     [Client]
@@ -212,13 +213,18 @@ public class RTSPlayer : NetworkBehaviour
 
     public bool CanPlaceBuilding(BoxCollider buildingCollider, Vector3 positionToSpawn)
     {
-        if (Physics.CheckBox(positionToSpawn + buildingCollider.center,
-            buildingCollider.size / 2, Quaternion.identity,
+        if (Physics.CheckBox(
+            positionToSpawn + buildingCollider.center,
+            buildingCollider.size / 2, 
+            Quaternion.identity,
             buildingBlockLayer))
         {
             return false;
         }
 
+        Debug.Log("Doesnt Collide");
+
+        Debug.Log(myBuildings.Count);
         foreach (Building build in myBuildings)
         {
             if ((positionToSpawn - build.transform.position).sqrMagnitude <= buildingRangeLimit * buildingRangeLimit)
@@ -226,6 +232,8 @@ public class RTSPlayer : NetworkBehaviour
                 return true;
             }
         }
+
+        Debug.Log("Isnt close enough");
 
         return false;
     }
