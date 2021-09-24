@@ -71,6 +71,7 @@ public class UnitCommandGiver : MonoBehaviour
     {
         foreach(Unit unit in unitSelectionHandler.GetSelectedUnits())
         {
+            Debug.Log("Move there");
             unit.GetUnitMovement().CmdMove(point);
         }
     }

@@ -99,14 +99,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -8659972552380018842, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
-      propertyPath: colorRenderers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8659972552380018842, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
-      propertyPath: colorRenderers.Array.data[0]
-      value: 
-      objectReference: {fileID: 5132032016510066810}
     - target: {fileID: 754309320094126434, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: m_Center.y
       value: 0.5
@@ -127,9 +119,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: CurrencySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2911110161044206223, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2911110161044206223, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4308281318470436971, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4831045362370244124, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: m_RootOrder
@@ -210,8 +210,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd057230fbd4a78468db3ee46bda4d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!23 &5132032016510066810 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7099898246934754951, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
-  m_PrefabInstance: {fileID: 2719967720651446013}
-  m_PrefabAsset: {fileID: 0}
