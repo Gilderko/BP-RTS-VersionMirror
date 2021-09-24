@@ -76,7 +76,8 @@ public class UnitMovement : NetworkBehaviour
     }
 
     [Command]
-    public void CmdMove(Vector3 position)
+    public void CmdMove
+        (Vector3 position)
     {
         ServerMove(position);
     }

@@ -16,6 +16,9 @@ public class RTSPlayer : NetworkBehaviour
     [SerializeField]
     private float buildingRangeLimit = 10f;
 
+    [SerializeField]
+    private Transform cameraTransform;
+
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] 
     private int resources = 500;
 
@@ -248,5 +251,10 @@ public class RTSPlayer : NetworkBehaviour
     public Color GetTeamColor()
     {
         return teamColor;
+    }
+
+    public Transform GetCameraTransform()
+    {
+        return cameraTransform;
     }
 }

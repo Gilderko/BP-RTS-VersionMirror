@@ -166,6 +166,7 @@ MonoBehaviour:
   - {fileID: 2937095489845318159, guid: 4b3e5a13853b6ee44b2e86e4aa1190e1, type: 3}
   - {fileID: 2937095489845318159, guid: 74be5843e39fcd5449f244d1618ef674, type: 3}
   buildingRangeLimit: 5
+  cameraTransform: {fileID: 3614415871907944298}
   myUnits: []
   myBuildings: []
 --- !u!114 &7489960712119259178
@@ -212,7 +213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6700924699381765725}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9139434826550655087}
