@@ -74,7 +74,11 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
 
             Color color = player.CanPlaceBuilding(buildingCollider, hit.point) ? canPlaceColor : canNotPlaceColor;
 
-            buildingRendererInstance.material.SetColor("_BaseColor", color);
+            foreach (Material material in buildingRendererInstance.materials)
+            {
+                material.SetColor("_BaseColor", color
+                    );
+            }
         }
     }
 

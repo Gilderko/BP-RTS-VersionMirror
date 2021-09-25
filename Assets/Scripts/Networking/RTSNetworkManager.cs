@@ -9,6 +9,9 @@ public class RTSNetworkManager : NetworkManager
     [SerializeField] private GameObject unitSpawnerPrefab = null;
     [SerializeField] private GameOverHandler gameOverHandler = null;
 
+    public static event System.Action ClientOnConnected;
+    public static event System.Action ClientOnDisconnected;
+
     #region Server
 
     [Server]
@@ -17,10 +20,7 @@ public class RTSNetworkManager : NetworkManager
         base.OnServerAddPlayer(conn);
 
         RTSPlayer player = conn.identity.GetComponent<RTSPlayer>();
-        player.SetTeamColor(Random.ColorHSV());
-
-        var spawner = Instantiate(unitSpawnerPrefab, conn.identity.transform.position,conn.identity.transform.rotation);
-        NetworkServer.Spawn(spawner, conn);
+        player.SetTeamColor(Random.ColorHSV());        
     }
 
     [Server]
@@ -37,6 +37,20 @@ public class RTSNetworkManager : NetworkManager
     #endregion
 
     #region Client
+
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        base.OnClientConnect(conn);
+
+        ClientOnConnected?.Invoke();
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+
+        ClientOnDisconnected?.Invoke();
+    }
 
     #endregion
 }
