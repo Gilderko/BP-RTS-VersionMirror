@@ -8,7 +8,10 @@ using UnityEngine;
 public class RTSPlayer : NetworkBehaviour
 {
     [SerializeField]
-    private LayerMask buildingBlockLayer = new LayerMask();
+    private LayerMask buildingBlockCollisionLayer = new LayerMask();
+
+    [SerializeField]
+    private LayerMask buildingKeepDistanceLayer = new LayerMask();
 
     [SerializeField] 
     private Building[] buildings = new Building[0];
@@ -17,7 +20,13 @@ public class RTSPlayer : NetworkBehaviour
     private float buildingRangeLimit = 10f;
 
     [SerializeField]
+    private float buildingFromEnemyLimit = 5f;
+
+    [SerializeField]
     private Transform cameraTransform;
+
+    [SerializeField]
+    private Vector2 cameraStartOffset = new Vector2(-5, -5);
 
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] 
     private int resources = 500;
@@ -27,6 +36,9 @@ public class RTSPlayer : NetworkBehaviour
 
     [SyncVar(hook = nameof(ClientHandleDisplayNameUpdated))]
     private string playerName = "";
+
+    [SyncVar(hook = nameof(ClientHandleStartCameraPositionUpdated))]
+    private Vector3 startPosition = new Vector3(0, 0, 21);
 
     public event Action<int> ClientOnResourcesUpdated;
 
@@ -128,6 +140,12 @@ public class RTSPlayer : NetworkBehaviour
     public void SetPartyOwner(bool state)
     {
         isPartyOwner = state;
+    }
+
+    [Server] 
+    public void ChangeStartingPosition(Vector3 pos)
+    {
+        startPosition = pos;
     }
 
     [Command]
@@ -233,6 +251,17 @@ public class RTSPlayer : NetworkBehaviour
     }
 
     [Client]
+    private void ClientHandleStartCameraPositionUpdated(Vector3 oldVec, Vector3 newVec)
+    {
+        if (!hasAuthority)
+        {
+            return;
+        }
+
+        cameraTransform.position = new Vector3(newVec.x + cameraStartOffset.x, 21, newVec.z + cameraStartOffset.y);
+    }
+
+    [Client]
     public override void OnStopClient()
     {
         ClientOnInfoUpdated?.Invoke();
@@ -297,11 +326,35 @@ public class RTSPlayer : NetworkBehaviour
             positionToSpawn + buildingCollider.center,
             buildingCollider.size / 2, 
             Quaternion.identity,
-            buildingBlockLayer))
+            buildingBlockCollisionLayer))
         {
             return false;
         }
 
+        RaycastHit[] hits = Physics.SphereCastAll(positionToSpawn, buildingFromEnemyLimit, Vector3.up, buildingKeepDistanceLayer);
+        foreach (RaycastHit hit in hits)
+        {
+            Unit possibleUnit = hit.transform.GetComponent<Unit>();
+            
+            if (possibleUnit != null)
+            {                
+                bool hasAuth = isClient ? possibleUnit.hasAuthority : possibleUnit.connectionToClient.connectionId == connectionToClient.connectionId;
+                if (!hasAuth)
+                {
+                    return false;
+                }
+            }
+
+            Building possibleBuilding = hit.transform.GetComponent<Building>();
+            if (possibleBuilding != null)
+            {
+                bool hasAuth = isClient ? possibleBuilding.hasAuthority : possibleBuilding.connectionToClient.connectionId == connectionToClient.connectionId;
+                if (!hasAuth)
+                {
+                    return false;
+                }
+            }
+        }
 
         foreach (Building build in myBuildings)
         {
@@ -310,6 +363,7 @@ public class RTSPlayer : NetworkBehaviour
                 return true;
             }
         }
+
         return false;
     }
 

@@ -108,15 +108,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  buildingBlockLayer:
+  buildingBlockCollisionLayer:
     serializedVersion: 2
-    m_Bits: 448
+    m_Bits: 449
+  buildingKeepDistanceLayer:
+    serializedVersion: 2
+    m_Bits: 257
   buildings:
   - {fileID: 2937095489845318159, guid: 74be5843e39fcd5449f244d1618ef674, type: 3}
   - {fileID: 4491206368364658772, guid: 3c03a7416dbd1fc4d9d0410f9875ba79, type: 3}
   - {fileID: 2270435175171995439, guid: 5f506acded725b04ea3c310993d08524, type: 3}
-  buildingRangeLimit: 40
+  buildingRangeLimit: 30
+  buildingFromEnemyLimit: 10
   cameraTransform: {fileID: 3614415871907944298}
+  cameraStartOffset: {x: -15, y: -15}
   myUnits: []
   myBuildings: []
 --- !u!114 &7489960712119259178

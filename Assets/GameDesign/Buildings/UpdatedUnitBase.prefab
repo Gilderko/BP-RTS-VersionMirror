@@ -75,6 +75,14 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 754309320094126434, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
+      propertyPath: m_Extents.x
+      value: 2.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 754309320094126434, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
+      propertyPath: m_Extents.z
+      value: 2.8
+      objectReference: {fileID: 0}
     - target: {fileID: 972193619820971250, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: icon
       value: 
@@ -141,11 +149,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7636398998977903849, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: m_Size.x
-      value: 2.05
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 7636398998977903849, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: m_Size.z
-      value: 2.83
+      value: 5.6
       objectReference: {fileID: 0}
     - target: {fileID: 7636398998977903849, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: m_Center.y
