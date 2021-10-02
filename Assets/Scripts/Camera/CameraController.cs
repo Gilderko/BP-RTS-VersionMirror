@@ -9,11 +9,14 @@ public class CameraController : NetworkBehaviour
 {
     [SerializeField] private Transform playerCameraTransform = null;
     [SerializeField] private float speed = 20f;
+    [SerializeField] private float speedY = 3f;
     [SerializeField] private float screenBorderThickness = 10f;
     [SerializeField] private Vector2 screenXLimits = Vector2.zero;
     [SerializeField] private Vector2 screenZLimits = Vector2.zero;
+    [SerializeField] private Vector2 screenYLimits = Vector2.zero;
 
     private Vector2 prevInput = Vector2.zero;
+    private float prevScrollInput = 0f;
 
     private Controls controls;
 
@@ -64,6 +67,9 @@ public class CameraController : NetworkBehaviour
             pos += new Vector3(prevInput.x, 0f, prevInput.y) * speed * Time.deltaTime;
         }
 
+        pos.y += -1 * prevScrollInput * speedY * Time.deltaTime;
+
+        pos.y = Mathf.Clamp(pos.y, screenYLimits.x, screenYLimits.y);
         pos.x = Mathf.Clamp(pos.x, screenXLimits.x, screenXLimits.y);
         pos.z = Mathf.Clamp(pos.z, screenZLimits.x, screenZLimits.y);
 
@@ -76,10 +82,18 @@ public class CameraController : NetworkBehaviour
 
         controls = new Controls();
 
+        controls.Player.ZoomCamera.performed += SetPrevScrollInput;
+        controls.Player.ZoomCamera.canceled += SetPrevScrollInput;
+
         controls.Player.MoveCamera.performed += SetPrevInput;
         controls.Player.MoveCamera.canceled += SetPrevInput;
 
         controls.Enable();
+    }
+
+    private void SetPrevScrollInput(InputAction.CallbackContext ctx)
+    {
+        prevScrollInput = ctx.ReadValue<float>();
     }
 
     #endregion
