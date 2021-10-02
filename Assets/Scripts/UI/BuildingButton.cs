@@ -29,15 +29,15 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
         iconMage.sprite = representedBuilding.GetIcon();
         priceText.text = representedBuilding.GetPrice().ToString();
         buildingCollider = representedBuilding.GetComponent<BoxCollider>();
+
+        if (NetworkClient.connection != null)
+        {
+            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+        }        
     }
 
     private void Update()
     {
-        if (player == null)
-        {
-            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-        }
-
         if (buildingPreviewInstance == null)
         {
             return;

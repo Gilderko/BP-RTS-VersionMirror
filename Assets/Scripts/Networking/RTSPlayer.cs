@@ -22,7 +22,16 @@ public class RTSPlayer : NetworkBehaviour
     [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] 
     private int resources = 500;
 
+    [SyncVar(hook = nameof(AuthorityHandlePartyOwnerStateUpdated))]
+    private bool isPartyOwner = false;
+
+    [SyncVar(hook = nameof(ClientHandleDisplayNameUpdated))]
+    private string playerName = "";
+
     public event Action<int> ClientOnResourcesUpdated;
+
+    public static event Action ClientOnInfoUpdated;
+    public static event Action<bool> AuthorityOnPartyOwnerChanged;
 
     private Color teamColor = new Color();
 
@@ -43,6 +52,14 @@ public class RTSPlayer : NetworkBehaviour
         Unit.ServerOnUnitDespawned += ServerHandleUnitDespawned;
         Building.ServerOnBuildingSpawned += ServerHandleBuildingSpawned;
         Building.ServerOnBuildingDespawned += ServerHandleBuildingDespawned;
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    [Server]
+    public void SetPlayerName(string displayName)
+    {
+        playerName = displayName;
     }
 
     [Server]
@@ -107,10 +124,26 @@ public class RTSPlayer : NetworkBehaviour
         teamColor = newColor;
     }
 
+    [Server]
+    public void SetPartyOwner(bool state)
+    {
+        isPartyOwner = state;
+    }
+
+    [Command]
+    public void CmdStartGame()
+    {
+        if (!isPartyOwner) 
+        { 
+            return; 
+        }
+
+        ((RTSNetworkManager)NetworkManager.singleton).StartGame();
+    }
+
     [Command]
     public void CmdTryPlaceBuilding(int buildingID, Vector3 positionToSpawn)
-    {
-       
+    {       
         Building buildingToPlace = buildings.First(build => build.GetID() == buildingID);
 
         if (buildingToPlace == null)
@@ -118,13 +151,11 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
-        Debug.Log("Found building");
         if (resources < buildingToPlace.GetPrice())
         {
             return;
         }
 
-        Debug.Log("Got money");
         BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();        
 
         if (!CanPlaceBuilding(buildingCollider, positionToSpawn))
@@ -132,7 +163,6 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
-        Debug.Log("Can Place building");
         GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity);
         NetworkServer.Spawn(building, connectionToClient);
 
@@ -160,6 +190,37 @@ public class RTSPlayer : NetworkBehaviour
     }
 
     [Client]
+    public override void OnStartClient()
+    {
+        if (NetworkServer.active)
+        {
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
+
+        ((RTSNetworkManager)NetworkManager.singleton).Players.Add(this);        
+    }
+
+    [Client]
+    private void AuthorityHandlePartyOwnerStateUpdated(bool oldState, bool newState)
+    {
+        if (!hasAuthority)
+        {
+            return;
+        }
+
+
+        AuthorityOnPartyOwnerChanged?.Invoke(newState);
+    }
+
+    [Client]
+    private void ClientHandleDisplayNameUpdated(string oldVal, string newVal)
+    {
+        ClientOnInfoUpdated?.Invoke();
+    }
+
+    [Client]
     private void AuthorityHandleBuildingDespawned(Building building)
     {
         myBuildings.Remove(building);
@@ -174,7 +235,16 @@ public class RTSPlayer : NetworkBehaviour
     [Client]
     public override void OnStopClient()
     {
-        if (!isClientOnly || !hasAuthority)
+        ClientOnInfoUpdated?.Invoke();
+
+        if (!isClientOnly)
+        {
+            return;
+        }
+
+        ((RTSNetworkManager)NetworkManager.singleton).Players.Add(this);
+
+        if (!hasAuthority)
         {
             return;
         }
@@ -232,9 +302,7 @@ public class RTSPlayer : NetworkBehaviour
             return false;
         }
 
-        Debug.Log("Doesnt Collide");
 
-        Debug.Log(myBuildings.Count);
         foreach (Building build in myBuildings)
         {
             if ((positionToSpawn - build.transform.position).sqrMagnitude <= buildingRangeLimit * buildingRangeLimit)
@@ -242,9 +310,6 @@ public class RTSPlayer : NetworkBehaviour
                 return true;
             }
         }
-
-        Debug.Log("Isnt close enough");
-
         return false;
     }
 
@@ -256,5 +321,15 @@ public class RTSPlayer : NetworkBehaviour
     public Transform GetCameraTransform()
     {
         return cameraTransform;
+    }
+
+    public bool IsPartyOwner()
+    {
+        return isPartyOwner;
+    }
+    
+    public string GetDisplayName()
+    {
+        return playerName;
     }
 }

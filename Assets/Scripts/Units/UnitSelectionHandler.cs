@@ -21,8 +21,14 @@ public class UnitSelectionHandler : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
+
+        if (NetworkClient.connection != null)
+        {
+            player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
+        }
+
         Unit.AuthorityOnUnitDespawned += AuthorityHandleUnitDespawned;
-        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;
+        GameOverHandler.ClientOnGameOver += ClientHandleGameOver;       
     }
 
     private void ClientHandleGameOver(string winnerName)
@@ -42,11 +48,6 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void Update()
     {
-        if (player == null && !NetworkClient.connection.identity.TryGetComponent<RTSPlayer>(out player)) // Fix this in a better way this is ugly
-        {
-            return;
-        }
-
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             StartSelectionArea();
