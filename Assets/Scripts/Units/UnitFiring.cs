@@ -1,6 +1,4 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitFiring : NetworkBehaviour
@@ -16,6 +14,7 @@ public class UnitFiring : NetworkBehaviour
 
     #region Server
 
+#if UNITY_SERVER
     [ServerCallback]
     private void Update()
     {
@@ -31,10 +30,7 @@ public class UnitFiring : NetworkBehaviour
             return;
         }
 
-        Debug.Log("Can FIRE");
-
         Quaternion targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         if (Time.time > (1 / fireRate) + lastFireTime)
@@ -48,6 +44,7 @@ public class UnitFiring : NetworkBehaviour
             lastFireTime = Time.time;
         }
     }
+#endif
 
     [Server]
     private bool CanFireAtTarget()

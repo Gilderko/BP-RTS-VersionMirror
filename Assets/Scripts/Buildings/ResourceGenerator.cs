@@ -1,7 +1,4 @@
 using Mirror;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceGenerator : NetworkBehaviour
@@ -14,7 +11,6 @@ public class ResourceGenerator : NetworkBehaviour
     private RTSPlayer player;
 
     #region Server
-
     [Server]
     public override void OnStartServer()
     {
@@ -24,6 +20,14 @@ public class ResourceGenerator : NetworkBehaviour
 
         health.ServerOnDie += ServerHandleDie;
         GameOverHandler.ServerOnGameOver += ServerHandleGameOver;
+    }
+
+    [Server]
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        health.ServerOnDie -= ServerHandleDie;
+        GameOverHandler.ServerOnGameOver -= ServerHandleGameOver;
     }
 
     [Server]
@@ -38,14 +42,8 @@ public class ResourceGenerator : NetworkBehaviour
         NetworkServer.Destroy(gameObject);
     }
 
-    [Server]
-    public override void OnStopServer()
-    {
-        base.OnStopServer();
-        health.ServerOnDie -= ServerHandleDie;
-        GameOverHandler.ServerOnGameOver -= ServerHandleGameOver;
-    }
 
+#if UNITY_SERVER
     [ServerCallback]
     private void Update()
     {
@@ -57,10 +55,6 @@ public class ResourceGenerator : NetworkBehaviour
             timer += interval;
         }
     }
-
-    #endregion
-
-    #region Client
-
+#endif
     #endregion
 }

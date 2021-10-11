@@ -1,8 +1,4 @@
 using Mirror;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +17,9 @@ public class CameraController : NetworkBehaviour
 
     private Controls controls;
 
-    #region Client
 
+    #region Client
+#if (UNITY_SERVER == false)
     [ClientCallback]
     private void Update()
     {
@@ -33,7 +30,9 @@ public class CameraController : NetworkBehaviour
 
         UpdateCameraPosition();
     }
+#endif
 
+    [Client]
     private void UpdateCameraPosition()
     {
         Vector3 pos = playerCameraTransform.position;
@@ -62,7 +61,7 @@ public class CameraController : NetworkBehaviour
             }
 
             pos += cursorMovement.normalized * speed * Time.deltaTime;
-        }       
+        }
         else
         {
             pos += new Vector3(prevInput.x, 0f, prevInput.y) * speed * Time.deltaTime;
@@ -77,6 +76,7 @@ public class CameraController : NetworkBehaviour
         playerCameraTransform.position = pos;
     }
 
+    [Client]
     public override void OnStartAuthority()
     {
         playerCameraTransform.gameObject.SetActive(true);
@@ -92,16 +92,17 @@ public class CameraController : NetworkBehaviour
         controls.Enable();
     }
 
+    [Client]
     private void SetPrevScrollInput(InputAction.CallbackContext ctx)
     {
         prevScrollInput = ctx.ReadValue<float>();
     }
 
-    #endregion
-
+    [Client]
     private void SetPrevInput(InputAction.CallbackContext ctx)
     {
         prevInput = ctx.ReadValue<Vector2>();
     }
 
+    #endregion
 }

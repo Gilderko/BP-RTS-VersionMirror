@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
@@ -10,15 +8,15 @@ public class UnitProjectile : NetworkBehaviour
     [SerializeField] private float destroyAfterSeconds = 5f;
     [SerializeField] private float launchForce = 10f;
 
+
     private void Start()
     {
         rb.velocity = transform.forward * launchForce;
     }
 
-
-
     #region Server
 
+#if UNITY_SERVER
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
@@ -43,6 +41,7 @@ public class UnitProjectile : NetworkBehaviour
 
         DestroySelf();
     }
+#endif
 
     [Server]
     public override void OnStartServer()

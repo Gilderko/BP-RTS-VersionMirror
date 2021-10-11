@@ -1,7 +1,4 @@
 using Mirror;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Targeter : NetworkBehaviour
@@ -28,11 +25,24 @@ public class Targeter : NetworkBehaviour
         ClearTarget();
     }
 
+    [Server]
+    public void ClearTarget()
+    {
+        target = null;
+    }
+
+    [Server]
+    public Targetable GetTarget()
+    {
+        return target;
+    }
+
+    #endregion
+
     [Command]
     public void CmdSetTarget(GameObject targetGameObject)
     {
         Targetable newTarget;
-        Debug.Log("setting target");
         if (!targetGameObject.TryGetComponent<Targetable>(out newTarget))
         {
             return;
@@ -40,22 +50,4 @@ public class Targeter : NetworkBehaviour
 
         target = newTarget;
     }
-
-    [Server]
-    public void ClearTarget()
-    {
-        target = null;
-    }
-
-    #endregion
-
-    #region Client
-
-    #endregion
-
-    public Targetable GetTarget()
-    {
-        return target;
-    }
-
 }

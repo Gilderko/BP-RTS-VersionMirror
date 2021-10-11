@@ -1,6 +1,5 @@
 using Mirror;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,7 +12,7 @@ public class RTSPlayer : NetworkBehaviour
     [SerializeField]
     private LayerMask buildingKeepDistanceLayer = new LayerMask();
 
-    [SerializeField] 
+    [SerializeField]
     private Building[] buildings = new Building[0];
 
     [SerializeField]
@@ -28,7 +27,7 @@ public class RTSPlayer : NetworkBehaviour
     [SerializeField]
     private Vector2 cameraStartOffset = new Vector2(-5, -5);
 
-    [SyncVar(hook = nameof(ClientHandleResourcesUpdated))] 
+    [SyncVar(hook = nameof(ClientHandleResourcesUpdated))]
     private int resources = 500;
 
     [SyncVar(hook = nameof(AuthorityHandlePartyOwnerStateUpdated))]
@@ -47,11 +46,11 @@ public class RTSPlayer : NetworkBehaviour
 
     private Color teamColor = new Color();
 
-    [SerializeField] 
+    [SerializeField]
     private List<Unit> myUnits = new List<Unit>();
 
-    [SerializeField] 
-    private List<Building> myBuildings = new List<Building>();    
+    [SerializeField]
+    private List<Building> myBuildings = new List<Building>();
 
     #region Server
 
@@ -142,7 +141,7 @@ public class RTSPlayer : NetworkBehaviour
         isPartyOwner = state;
     }
 
-    [Server] 
+    [Server]
     public void ChangeStartingPosition(Vector3 pos)
     {
         startPosition = pos;
@@ -151,9 +150,9 @@ public class RTSPlayer : NetworkBehaviour
     [Command]
     public void CmdStartGame()
     {
-        if (!isPartyOwner) 
-        { 
-            return; 
+        if (!isPartyOwner)
+        {
+            return;
         }
 
         ((RTSNetworkManager)NetworkManager.singleton).StartGame();
@@ -161,7 +160,7 @@ public class RTSPlayer : NetworkBehaviour
 
     [Command]
     public void CmdTryPlaceBuilding(int buildingID, Vector3 positionToSpawn)
-    {       
+    {
         Building buildingToPlace = buildings.First(build => build.GetID() == buildingID);
 
         if (buildingToPlace == null)
@@ -174,7 +173,7 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
-        BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();        
+        BoxCollider buildingCollider = buildingToPlace.GetComponent<BoxCollider>();
 
         if (!CanPlaceBuilding(buildingCollider, positionToSpawn))
         {
@@ -217,7 +216,7 @@ public class RTSPlayer : NetworkBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        ((RTSNetworkManager)NetworkManager.singleton).Players.Add(this);        
+        ((RTSNetworkManager)NetworkManager.singleton).Players.Add(this);
     }
 
     [Client]
@@ -227,7 +226,6 @@ public class RTSPlayer : NetworkBehaviour
         {
             return;
         }
-
 
         AuthorityOnPartyOwnerChanged?.Invoke(newState);
     }
@@ -271,7 +269,7 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
-        ((RTSNetworkManager)NetworkManager.singleton).Players.Add(this);
+        ((RTSNetworkManager)NetworkManager.singleton).Players.Remove(this);
 
         if (!hasAuthority)
         {
@@ -296,7 +294,7 @@ public class RTSPlayer : NetworkBehaviour
     private void AuthorityHandleUnitDespawned(Unit unit)
     {
         myUnits.Remove(unit);
-    } 
+    }
 
     [Client]
     private void ClientHandleResourcesUpdated(int oldValue, int newValue)
@@ -324,7 +322,7 @@ public class RTSPlayer : NetworkBehaviour
     {
         if (Physics.CheckBox(
             positionToSpawn + buildingCollider.center,
-            buildingCollider.size / 2, 
+            buildingCollider.size / 2,
             Quaternion.identity,
             buildingBlockCollisionLayer))
         {
@@ -335,9 +333,9 @@ public class RTSPlayer : NetworkBehaviour
         foreach (RaycastHit hit in hits)
         {
             Unit possibleUnit = hit.transform.GetComponent<Unit>();
-            
+
             if (possibleUnit != null)
-            {                
+            {
                 bool hasAuth = isClient ? possibleUnit.hasAuthority : possibleUnit.connectionToClient.connectionId == connectionToClient.connectionId;
                 if (!hasAuth)
                 {
@@ -381,7 +379,7 @@ public class RTSPlayer : NetworkBehaviour
     {
         return isPartyOwner;
     }
-    
+
     public string GetDisplayName()
     {
         return playerName;

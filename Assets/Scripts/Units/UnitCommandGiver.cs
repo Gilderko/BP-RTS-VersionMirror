@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +8,7 @@ public class UnitCommandGiver : MonoBehaviour
 
     private Camera mainCamera;
 
+#if (UNITY_SERVER == false)
     private void Start()
     {
         mainCamera = Camera.main;
@@ -23,12 +21,7 @@ public class UnitCommandGiver : MonoBehaviour
         GameOverHandler.ClientOnGameOver -= ClientHandleGameOver;
     }
 
-    private void ClientHandleGameOver(string obj)
-    {
-        enabled = false;
-    }
-
-    void Update()
+    private void Update()
     {
         if (!Mouse.current.rightButton.wasPressedThisFrame)
         {
@@ -56,7 +49,13 @@ public class UnitCommandGiver : MonoBehaviour
         else
         {
             TryMove(hit.point);
-        }        
+        }
+    }
+#endif
+
+    private void ClientHandleGameOver(string obj)
+    {
+        enabled = false;
     }
 
     private void TryTarget(Targetable target)
@@ -69,7 +68,7 @@ public class UnitCommandGiver : MonoBehaviour
 
     private void TryMove(Vector3 point)
     {
-        foreach(Unit unit in unitSelectionHandler.GetSelectedUnits())
+        foreach (Unit unit in unitSelectionHandler.GetSelectedUnits())
         {
             unit.GetUnitMovement().CmdMove(point);
         }

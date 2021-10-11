@@ -1,6 +1,4 @@
 using Mirror;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,12 +12,13 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField] private RectTransform playerParent;
     [SerializeField] private PlayerLobbyUIInstance playerLobbyUI;
 
+#if (UNITY_SERVER == false)
     private void Start()
     {
         RTSNetworkManager.ClientOnConnected += HandleClientConnected;
         RTSPlayer.AuthorityOnPartyOwnerChanged += AuthorityHandlePartyOwnerStateUpdate;
         RTSPlayer.ClientOnInfoUpdated += ClientHandleInfoUpdated;
-    }    
+    }
 
     private void OnDestroy()
     {
@@ -27,6 +26,7 @@ public class LobbyMenu : MonoBehaviour
         RTSPlayer.AuthorityOnPartyOwnerChanged -= AuthorityHandlePartyOwnerStateUpdate;
         RTSPlayer.ClientOnInfoUpdated -= ClientHandleInfoUpdated;
     }
+#endif
 
     private void AuthorityHandlePartyOwnerStateUpdate(bool state)
     {
@@ -44,7 +44,7 @@ public class LobbyMenu : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            var playerUIInstance = Instantiate(playerLobbyUI,playerParent);
+            var playerUIInstance = Instantiate(playerLobbyUI, playerParent);
             playerUIInstance.SetName(players[i].GetDisplayName());
         }
     }

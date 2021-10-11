@@ -1,10 +1,6 @@
 ﻿using Mirror;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 public class UnitMovement : NetworkBehaviour
 {
@@ -48,6 +44,7 @@ public class UnitMovement : NetworkBehaviour
         agent.SetDestination(position);
     }
 
+#if UNITY_SERVER
     [ServerCallback]
     private void Update()
     {
@@ -74,17 +71,13 @@ public class UnitMovement : NetworkBehaviour
             agent.ResetPath();
         }       
     }
+#endif
 
     [Command]
-    public void CmdMove
-        (Vector3 position)
+    public void CmdMove(Vector3 position)
     {
         ServerMove(position);
     }
-
-    #endregion
-
-    #region Client    
 
     #endregion
 }

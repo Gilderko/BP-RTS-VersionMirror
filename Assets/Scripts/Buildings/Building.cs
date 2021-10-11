@@ -1,7 +1,5 @@
 using Mirror;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Building : NetworkBehaviour
@@ -37,6 +35,7 @@ public class Building : NetworkBehaviour
         return price;
     }
 
+
     #region Server
 
     [Server]
@@ -66,7 +65,7 @@ public class Building : NetworkBehaviour
 
     [Client]
     public override void OnStopClient()
-    {    
+    {
         if (!hasAuthority)
         {
             return;
@@ -78,6 +77,4 @@ public class Building : NetworkBehaviour
     }
 
     #endregion
-
-
 }

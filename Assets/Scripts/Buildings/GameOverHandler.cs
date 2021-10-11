@@ -1,8 +1,6 @@
 using Mirror;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameOverHandler : NetworkBehaviour
 {
@@ -11,6 +9,7 @@ public class GameOverHandler : NetworkBehaviour
     private List<UnitBase> bases = new List<UnitBase>();
 
     public static event Action<string> ClientOnGameOver;
+
 
     #region Server
 
@@ -30,10 +29,10 @@ public class GameOverHandler : NetworkBehaviour
         UnitBase.ServerOnBaseDespawned -= ServerHandleBaseDespawned;
     }
 
+
     [Server]
     private void ServerHandleBaseSpawned(UnitBase unitBase)
     {
-        Debug.Log("Base added");
         bases.Add(unitBase);
     }
 
@@ -41,8 +40,6 @@ public class GameOverHandler : NetworkBehaviour
     private void ServerHandleBaseDespawned(UnitBase unitBase)
     {
         bases.Remove(unitBase);
-
-        Debug.Log($"Base removed base count {bases.Count}");
 
         if (bases.Count != 1)
         {
@@ -57,6 +54,7 @@ public class GameOverHandler : NetworkBehaviour
     }
 
     #endregion
+
 
     #region Client
 

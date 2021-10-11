@@ -1,7 +1,5 @@
 using Mirror;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitBase : NetworkBehaviour
@@ -24,24 +22,19 @@ public class UnitBase : NetworkBehaviour
     }
 
     [Server]
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        ServerOnBaseDespawned?.Invoke(this);
+        health.ServerOnDie -= ServerHandleDeath;
+    }
+
+    [Server]
     private void ServerHandleDeath()
     {
         ServerOnPlayerDie?.Invoke(connectionToClient.connectionId);
 
         NetworkServer.Destroy(gameObject);
     }
-
-    [Server]
-    public override void OnStopServer()
-    {
-        base.OnStopServer();        
-        ServerOnBaseDespawned?.Invoke(this);
-        health.ServerOnDie -= ServerHandleDeath;
-    }
-
-    #endregion
-
-    #region Client
-
     #endregion
 }

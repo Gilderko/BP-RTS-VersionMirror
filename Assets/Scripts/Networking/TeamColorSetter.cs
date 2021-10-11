@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mirror;
+using UnityEngine;
 
 public class TeamColorSetter : NetworkBehaviour
 {
@@ -33,7 +31,7 @@ public class TeamColorSetter : NetworkBehaviour
             foreach (Material material in render.materials)
             {
                 material.SetColor("_BaseColor", newColor);
-            }           
+            }
         }
     }
 

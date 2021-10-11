@@ -1,5 +1,4 @@
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,6 +23,8 @@ public class RTSNetworkManager : NetworkManager
         if (!isGameInProgress) { return; }
 
         conn.Disconnect();
+
+        base.OnServerConnect(conn);
     }
 
     [Server]
@@ -82,14 +83,13 @@ public class RTSNetworkManager : NetworkManager
 
             NetworkServer.Spawn(gameOverHandlerInstance.gameObject);
 
-            foreach(RTSPlayer player in Players)
+            foreach (RTSPlayer player in Players)
             {
                 GameObject baseInstance = Instantiate(playerBase, GetStartPosition().position, Quaternion.identity);
-                Debug.Log(baseInstance.transform.position);
                 NetworkServer.Spawn(baseInstance, player.connectionToClient);
 
                 player.ChangeStartingPosition(baseInstance.transform.position);
-            }  
+            }
         }
     }
 
@@ -120,7 +120,5 @@ public class RTSNetworkManager : NetworkManager
 
         Players.Clear();
     }
-
-
     #endregion
 }

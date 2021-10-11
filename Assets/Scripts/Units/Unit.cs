@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mirror;
-using UnityEngine.Events;
 using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class Unit : NetworkBehaviour
 {
@@ -32,7 +30,7 @@ public class Unit : NetworkBehaviour
 
     [Server]
     public override void OnStartServer()
-    {        
+    {
         ServerOnUnitSpawned?.Invoke(this);
         health.ServerOnDie += ServerHandleDie;
     }
@@ -41,18 +39,20 @@ public class Unit : NetworkBehaviour
     public override void OnStopServer()
     {
         health.ServerOnDie -= ServerHandleDie;
-        ServerOnUnitDespawned?.Invoke(this);        
+        ServerOnUnitDespawned?.Invoke(this);
     }
 
     #endregion
 
     #region Client
 
+    [Client]
     public override void OnStartAuthority()
     {
         AuthorityOnUnitSpawned?.Invoke(this);
     }
 
+    [Client]
     public override void OnStopClient()
     {
         if (!hasAuthority)
@@ -74,7 +74,7 @@ public class Unit : NetworkBehaviour
         onSelected.Invoke();
     }
 
-    [Client] 
+    [Client]
     public void Deselect()
     {
         if (!hasAuthority)

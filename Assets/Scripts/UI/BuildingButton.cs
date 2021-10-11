@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using Mirror;
+using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class BuildingButton : MonoBehaviour, IPointerClickHandler
 {
@@ -23,6 +21,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
     private GameObject buildingPreviewInstance;
     private Renderer buildingRendererInstance;
 
+#if (UNITY_SERVER == false)
     private void Start()
     {
         mainCamera = Camera.main;
@@ -33,7 +32,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
         if (NetworkClient.connection != null)
         {
             player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
-        }        
+        }
     }
 
     private void Update()
@@ -45,6 +44,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
 
         UpdateBuildingPreview();
     }
+#endif
 
     private void UpdateBuildingPreview()
     {
@@ -61,7 +61,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
             }
 
             Destroy(buildingPreviewInstance);
-            buildingRendererInstance = null;           
+            buildingRendererInstance = null;
         }
         else if (hasHit)
         {
@@ -93,8 +93,6 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
         {
             return;
         }
-
-        Debug.Log("Creating building");
 
         buildingPreviewInstance = Instantiate(representedBuilding.GetBuildingPreview());
         buildingRendererInstance = buildingPreviewInstance.GetComponentInChildren<Renderer>();

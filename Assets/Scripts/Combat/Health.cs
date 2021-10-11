@@ -1,7 +1,5 @@
 using Mirror;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : NetworkBehaviour
@@ -52,7 +50,7 @@ public class Health : NetworkBehaviour
             return;
         }
 
-        currentHealth = Mathf.Clamp(currentHealth - damageAmount,0, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth - damageAmount, 0, maxHealth);
 
         if (currentHealth != 0)
         {
@@ -60,18 +58,18 @@ public class Health : NetworkBehaviour
         }
 
         ServerOnDie?.Invoke();
-
-        Debug.Log("We Died");
     }
 
     #endregion
 
     #region Client
 
+    [Client]
     private void HandeHealthUpdated(int oldHealth, int newHealth)
     {
-        ClientOnHealthUpdated(newHealth,maxHealth);
+        ClientOnHealthUpdated(newHealth, maxHealth);
     }
 
     #endregion
+
 }

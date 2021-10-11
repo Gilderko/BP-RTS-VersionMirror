@@ -1,9 +1,7 @@
 using Mirror;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 using UnityEngine.UI;
 
 public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
@@ -19,7 +17,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     [SyncVar(hook = nameof(ClientHandleQueuedUnitsUpdated))]
     private int queuedUnits = 0;
-    
+
     [SyncVar]
     private float unitTimer = 0.0f;
 
@@ -27,14 +25,18 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     private void Update()
     {
+#if UNITY_SERVER
         if (isServer)
         {
             ProduceUnits();
         }
+#endif
+#if (UNITY_SERVER == false)
         if (isClient)
         {
             UpdateTimerDisplay();
-        }        
+        }
+#endif
     }
 
     #region Server
@@ -50,8 +52,9 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     public override void OnStopServer()
     {
         base.OnStopServer();
-        health.ServerOnDie += ServerHandleDie;
+        health.ServerOnDie -= ServerHandleDie;
     }
+
 
     [Server]
     private void ServerHandleDie()
@@ -132,7 +135,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     private void ClientHandleQueuedUnitsUpdated(int oldAmount, int newAmount)
     {
         remainingUnitsText.text = newAmount.ToString();
-    }    
+    }
 
     [Client]
     private void UpdateTimerDisplay()
