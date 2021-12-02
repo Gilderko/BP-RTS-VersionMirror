@@ -11,6 +11,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image iconMage = null;
     [SerializeField] private TextMeshProUGUI priceText = null;
     [SerializeField] private LayerMask floorMask = new LayerMask();
+    [SerializeField] private TextMeshProUGUI buildingName = null;
 
     [SerializeField] private Color canPlaceColor = new Color();
     [SerializeField] private Color canNotPlaceColor = new Color();
@@ -21,12 +22,13 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
     private GameObject buildingPreviewInstance;
     private Renderer buildingRendererInstance;
 
-#if (UNITY_SERVER == false)
+
     private void Start()
     {
         mainCamera = Camera.main;
         iconMage.sprite = representedBuilding.GetIcon();
         priceText.text = representedBuilding.GetPrice().ToString();
+        buildingName.text = representedBuilding.GetName();
         buildingCollider = representedBuilding.GetComponent<BoxCollider>();
 
         if (NetworkClient.connection != null)
@@ -44,7 +46,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
 
         UpdateBuildingPreview();
     }
-#endif
+
 
     private void UpdateBuildingPreview()
     {

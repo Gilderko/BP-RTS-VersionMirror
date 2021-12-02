@@ -25,18 +25,18 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     private void Update()
     {
-#if UNITY_SERVER
+
         if (isServer)
         {
             ProduceUnits();
         }
-#endif
-#if (UNITY_SERVER == false)
+
+
         if (isClient)
         {
             UpdateTimerDisplay();
         }
-#endif
+
     }
 
     #region Server
@@ -97,7 +97,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
             return;
         }
 
-        GameObject spawnedUnit = Instantiate(unitPrefab.gameObject, spawnLocation.position, spawnLocation.rotation);
+        GameObject spawnedUnit = Instantiate(unitPrefab.gameObject, spawnLocation.position, spawnLocation.rotation, connectionToClient.identity.transform);
 
         NetworkServer.Spawn(spawnedUnit, connectionToClient);
 

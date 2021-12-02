@@ -8,6 +8,7 @@ public class Building : NetworkBehaviour
     [SerializeField] private int buildingID = -1;
     [SerializeField] private int price = 100;
     [SerializeField] private GameObject buildingPreview = null;
+    [SerializeField] private string buildingName = "";
 
     public static event Action<Building> ServerOnBuildingSpawned;
     public static event Action<Building> ServerOnBuildingDespawned;
@@ -35,6 +36,10 @@ public class Building : NetworkBehaviour
         return price;
     }
 
+    public string GetName()
+    {
+        return buildingName;
+    }
 
     #region Server
 

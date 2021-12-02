@@ -12,7 +12,7 @@ public class LobbyMenu : MonoBehaviour
     [SerializeField] private RectTransform playerParent;
     [SerializeField] private PlayerLobbyUIInstance playerLobbyUI;
 
-#if (UNITY_SERVER == false)
+
     private void Start()
     {
         RTSNetworkManager.ClientOnConnected += HandleClientConnected;
@@ -26,7 +26,7 @@ public class LobbyMenu : MonoBehaviour
         RTSPlayer.AuthorityOnPartyOwnerChanged -= AuthorityHandlePartyOwnerStateUpdate;
         RTSPlayer.ClientOnInfoUpdated -= ClientHandleInfoUpdated;
     }
-#endif
+
 
     private void AuthorityHandlePartyOwnerStateUpdate(bool state)
     {

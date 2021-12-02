@@ -5,12 +5,12 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject landingPagePanel = null;
 
-#if UNITY_SERVER
-    private void Start()
+
+    /*private void Start()
     {
         HostLobbyCallback();
-    }
-#endif
+    }*/
+
 
     public void HostLobbyCallback()
     {

@@ -43,7 +43,7 @@ public class ResourceGenerator : NetworkBehaviour
     }
 
 
-#if UNITY_SERVER
+
     [ServerCallback]
     private void Update()
     {
@@ -55,6 +55,6 @@ public class ResourceGenerator : NetworkBehaviour
             timer += interval;
         }
     }
-#endif
+
     #endregion
 }

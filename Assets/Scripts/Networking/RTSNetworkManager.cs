@@ -85,7 +85,7 @@ public class RTSNetworkManager : NetworkManager
 
             foreach (RTSPlayer player in Players)
             {
-                GameObject baseInstance = Instantiate(playerBase, GetStartPosition().position, Quaternion.identity);
+                GameObject baseInstance = Instantiate(playerBase, GetStartPosition().position, Quaternion.identity, player.transform);
                 NetworkServer.Spawn(baseInstance, player.connectionToClient);
 
                 player.ChangeStartingPosition(baseInstance.transform.position);

@@ -14,7 +14,7 @@ public class UnitFiring : NetworkBehaviour
 
     #region Server
 
-#if UNITY_SERVER
+
     [ServerCallback]
     private void Update()
     {
@@ -44,7 +44,7 @@ public class UnitFiring : NetworkBehaviour
             lastFireTime = Time.time;
         }
     }
-#endif
+
 
     [Server]
     private bool CanFireAtTarget()

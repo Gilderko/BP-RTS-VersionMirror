@@ -16,7 +16,7 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private List<Unit> selectedUnits = new List<Unit>();
 
-#if (UNITY_SERVER == false)
+
     private void Start()
     {
         mainCamera = Camera.main;
@@ -37,20 +37,23 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (NetworkClient.active)
         {
-            StartSelectionArea();
-        }
-        else if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            ClearSelectionArea();
-        }
-        else if (Mouse.current.leftButton.isPressed)
-        {
-            UpdateSelectionArea();
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                StartSelectionArea();
+            }
+            else if (Mouse.current.leftButton.wasReleasedThisFrame)
+            {
+                ClearSelectionArea();
+            }
+            else if (Mouse.current.leftButton.isPressed)
+            {
+                UpdateSelectionArea();
+            }
         }
     }
-#endif
+
 
     private void ClientHandleGameOver(string winnerName)
     {

@@ -36,6 +36,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2937095489845318159, guid: 4b3e5a13853b6ee44b2e86e4aa1190e1, type: 3}
+      propertyPath: buildingName
+      value: Jeep spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 2937095489845318159, guid: 4b3e5a13853b6ee44b2e86e4aa1190e1, type: 3}
       propertyPath: buildingPreview
       value: 
       objectReference: {fileID: 8526479403186324295}

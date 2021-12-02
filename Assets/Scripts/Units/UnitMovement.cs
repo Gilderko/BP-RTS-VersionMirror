@@ -28,6 +28,36 @@ public class UnitMovement : NetworkBehaviour
     {
         base.OnStopServer();
         GameOverHandler.ServerOnGameOver -= ServerHandleGameOver;
+    }  
+
+    [ServerCallback]
+    private void Update()
+    {
+        if (isServer)
+        {
+            Targetable target = targeter.GetTarget();
+
+            if (target != null)
+            {
+                if ((target.transform.position - transform.position).sqrMagnitude > chaseRange * chaseRange)
+                {
+                    agent.SetDestination(targeter.GetTarget().transform.position);
+                }
+                else if (agent.hasPath)
+                {
+                    agent.ResetPath();
+                }
+            }
+            else
+            {
+                if (!agent.hasPath || agent.remainingDistance >= agent.stoppingDistance)
+                {
+                    return;
+                }
+
+                agent.ResetPath();
+            }
+        }
     }
 
     [Server]
@@ -43,35 +73,6 @@ public class UnitMovement : NetworkBehaviour
 
         agent.SetDestination(position);
     }
-
-#if UNITY_SERVER
-    [ServerCallback]
-    private void Update()
-    {
-        Targetable target = targeter.GetTarget();
-
-        if (target != null)
-        {
-            if ((target.transform.position - transform.position).sqrMagnitude > chaseRange * chaseRange)
-            {
-                agent.SetDestination(targeter.GetTarget().transform.position);
-            }
-            else if (agent.hasPath)
-            {
-                agent.ResetPath();
-            }
-        }
-        else
-        {
-            if (!agent.hasPath || agent.remainingDistance >= agent.stoppingDistance)
-            {
-                return;
-            }
-
-            agent.ResetPath();
-        }       
-    }
-#endif
 
     [Command]
     public void CmdMove(Vector3 position)

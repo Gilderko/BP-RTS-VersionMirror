@@ -141,10 +141,6 @@ PrefabInstance:
       value: 1.99
       objectReference: {fileID: 0}
     - target: {fileID: 972193619820971250, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
-      propertyPath: icon
-      value: 
-      objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 972193619820971250, guid: 8807c2446dde6e544b9eedc5a69f3f38, type: 3}
       propertyPath: price
       value: 150
       objectReference: {fileID: 0}

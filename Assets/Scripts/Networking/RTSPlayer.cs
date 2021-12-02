@@ -138,7 +138,7 @@ public class RTSPlayer : NetworkBehaviour
     [Server]
     public void SetPartyOwner(bool state)
     {
-        isPartyOwner = state;
+        isPartyOwner = state;        
     }
 
     [Server]
@@ -180,7 +180,7 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
-        GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity);
+        GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity, transform);
         NetworkServer.Spawn(building, connectionToClient);
 
         AddResources(-buildingToPlace.GetPrice());
