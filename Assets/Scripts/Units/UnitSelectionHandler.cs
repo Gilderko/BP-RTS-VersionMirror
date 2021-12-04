@@ -14,7 +14,7 @@ public class UnitSelectionHandler : MonoBehaviour
     private RTSPlayer player;
     private Camera mainCamera;
 
-    private List<Unit> selectedUnits = new List<Unit>();
+    private HashSet<Unit> selectedUnits = new List<Unit>();
 
 
     private void Start()
