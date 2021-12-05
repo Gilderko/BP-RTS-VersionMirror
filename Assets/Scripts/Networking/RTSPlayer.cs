@@ -180,7 +180,7 @@ public class RTSPlayer : NetworkBehaviour
             return;
         }
 
-        GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity, transform);
+        GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity);
         NetworkServer.Spawn(building, connectionToClient);
 
         AddResources(-buildingToPlace.GetPrice());

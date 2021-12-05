@@ -97,7 +97,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
             return;
         }
 
-        GameObject spawnedUnit = Instantiate(unitPrefab.gameObject, spawnLocation.position, spawnLocation.rotation, connectionToClient.identity.transform);
+        GameObject spawnedUnit = Instantiate(unitPrefab.gameObject, spawnLocation.position, spawnLocation.rotation);
 
         NetworkServer.Spawn(spawnedUnit, connectionToClient);
 
