@@ -25,18 +25,15 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     private void Update()
     {
-
         if (isServer)
         {
             ProduceUnits();
         }
 
-
-        if (isClient)
+        else if (isClient)
         {
             UpdateTimerDisplay();
         }
-
     }
 
     #region Server

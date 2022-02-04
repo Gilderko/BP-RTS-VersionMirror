@@ -22,6 +22,7 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
     private GameObject buildingPreviewInstance;
     private Renderer buildingRendererInstance;
 
+#if !UNITY_SERVER
 
     private void Start()
     {
@@ -46,6 +47,8 @@ public class BuildingButton : MonoBehaviour, IPointerClickHandler
 
         UpdateBuildingPreview();
     }
+
+#endif
 
 
     private void UpdateBuildingPreview()

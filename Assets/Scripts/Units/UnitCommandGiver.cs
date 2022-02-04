@@ -8,6 +8,7 @@ public class UnitCommandGiver : MonoBehaviour
 
     private Camera mainCamera;
 
+#if !UNITY_SERVER
 
     private void Start()
     {
@@ -52,6 +53,7 @@ public class UnitCommandGiver : MonoBehaviour
         }
     }
 
+#endif
 
     private void ClientHandleGameOver(string obj)
     {

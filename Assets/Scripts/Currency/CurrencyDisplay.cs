@@ -8,7 +8,7 @@ public class CurrencyDisplay : MonoBehaviour
 
     private RTSPlayer player;
 
-
+#if !UNITY_SERVER
     private void Start()
     {
         if (NetworkClient.connection != null)
@@ -16,8 +16,7 @@ public class CurrencyDisplay : MonoBehaviour
             player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
             player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
             ClientHandleResourcesUpdated(player.GetResources());            
-        }
-        
+        }        
     }
 
     private void OnDestroy()
@@ -28,6 +27,7 @@ public class CurrencyDisplay : MonoBehaviour
         }
     }
 
+#endif
 
     private void ClientHandleResourcesUpdated(int obj)
     {

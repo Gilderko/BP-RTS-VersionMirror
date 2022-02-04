@@ -14,6 +14,7 @@ public class UnitFiring : NetworkBehaviour
 
     #region Server
 
+#if UNITY_SERVER
 
     [ServerCallback]
     private void Update()
@@ -45,6 +46,8 @@ public class UnitFiring : NetworkBehaviour
         }
     }
 
+#endif
+
 
     [Server]
     private bool CanFireAtTarget()
@@ -52,5 +55,5 @@ public class UnitFiring : NetworkBehaviour
         return (targeter.GetTarget().transform.position - transform.position).sqrMagnitude <= fireRange * fireRange;
     }
 
-    #endregion
+#endregion
 }

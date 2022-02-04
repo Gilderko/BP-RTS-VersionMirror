@@ -8,14 +8,12 @@ public class UnitProjectile : NetworkBehaviour
     [SerializeField] private float destroyAfterSeconds = 5f;
     [SerializeField] private float launchForce = 10f;
 
-
     private void Start()
     {
         rb.velocity = transform.forward * launchForce;
     }
 
     #region Server
-
 
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
@@ -41,7 +39,6 @@ public class UnitProjectile : NetworkBehaviour
 
         DestroySelf();
     }
-
 
     [Server]
     public override void OnStartServer()

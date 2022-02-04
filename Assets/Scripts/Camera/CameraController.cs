@@ -20,6 +20,8 @@ public class CameraController : NetworkBehaviour
 
     #region Client
 
+#if !UNITY_SERVER
+
     [ClientCallback]
     private void Update()
     {
@@ -30,6 +32,8 @@ public class CameraController : NetworkBehaviour
 
         UpdateCameraPosition();
     }
+
+#endif
 
 
     [Client]
@@ -104,5 +108,5 @@ public class CameraController : NetworkBehaviour
         prevInput = ctx.ReadValue<Vector2>();
     }
 
-    #endregion
+#endregion
 }

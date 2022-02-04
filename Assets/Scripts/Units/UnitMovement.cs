@@ -28,7 +28,9 @@ public class UnitMovement : NetworkBehaviour
     {
         base.OnStopServer();
         GameOverHandler.ServerOnGameOver -= ServerHandleGameOver;
-    }  
+    }
+
+#if UNITY_SERVER
 
     [ServerCallback]
     private void Update()
@@ -60,6 +62,8 @@ public class UnitMovement : NetworkBehaviour
         }
     }
 
+#endif
+
     [Server]
     public void ServerMove(Vector3 position)
     {
@@ -80,5 +84,5 @@ public class UnitMovement : NetworkBehaviour
         ServerMove(position);
     }
 
-    #endregion
+#endregion
 }

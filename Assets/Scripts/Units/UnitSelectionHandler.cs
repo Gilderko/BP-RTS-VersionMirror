@@ -16,6 +16,7 @@ public class UnitSelectionHandler : MonoBehaviour
 
     private HashSet<Unit> selectedUnits = new HashSet<Unit>();
 
+#if !UNITY_SERVER
 
     private void Start()
     {
@@ -54,6 +55,7 @@ public class UnitSelectionHandler : MonoBehaviour
         }
     }
 
+#endif
 
     private void ClientHandleGameOver(string winnerName)
     {

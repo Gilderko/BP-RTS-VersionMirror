@@ -42,7 +42,7 @@ public class ResourceGenerator : NetworkBehaviour
         NetworkServer.Destroy(gameObject);
     }
 
-
+#if UNITY_SERVER
 
     [ServerCallback]
     private void Update()
@@ -56,5 +56,7 @@ public class ResourceGenerator : NetworkBehaviour
         }
     }
 
-    #endregion
+#endif
+
+#endregion
 }

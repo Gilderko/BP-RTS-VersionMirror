@@ -5,13 +5,6 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject landingPagePanel = null;
 
-
-    /*private void Start()
-    {
-        HostLobbyCallback();
-    }*/
-
-
     public void HostLobbyCallback()
     {
         Debug.Log("Session started");
