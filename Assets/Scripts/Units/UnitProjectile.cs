@@ -15,6 +15,8 @@ public class UnitProjectile : NetworkBehaviour
 
     #region Server
 
+#if UNITY_SERVER
+
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
@@ -40,6 +42,8 @@ public class UnitProjectile : NetworkBehaviour
         DestroySelf();
     }
 
+#endif
+
     [Server]
     public override void OnStartServer()
     {
@@ -52,5 +56,5 @@ public class UnitProjectile : NetworkBehaviour
         NetworkServer.Destroy(gameObject);
     }
 
-    #endregion
+#endregion
 }
