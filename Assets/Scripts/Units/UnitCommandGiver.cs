@@ -68,7 +68,7 @@ public class UnitCommandGiver : MonoBehaviour
         }
     }
 
-    private void TryMove(Vector3 point)
+    public void TryMove(Vector3 point)
     {
         foreach (Unit unit in unitSelectionHandler.GetSelectedUnits())
         {

@@ -186,6 +186,14 @@ public class RTSPlayer : NetworkBehaviour
         AddResources(-buildingToPlace.GetPrice());
     }
 
+    [Command]
+    public void MustPlaceBuilding(int buildingID, Vector3 positionToSpawn)
+    {
+        Building buildingToPlace = buildings.First(build => build.GetID() == buildingID);
+        GameObject building = Instantiate(buildingToPlace.gameObject, positionToSpawn, Quaternion.identity);
+        NetworkServer.Spawn(building, connectionToClient);
+    }
+
     #endregion
 
     #region Client

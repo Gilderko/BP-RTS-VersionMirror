@@ -7,6 +7,7 @@ public class RTSNetworkManager : NetworkManager
 {
     [SerializeField] private GameObject playerBase = null;
     [SerializeField] private GameOverHandler gameOverHandler = null;
+    [SerializeField] private Commander commander = null;
 
     public static event System.Action ClientOnConnected;
     public static event System.Action ClientOnDisconnected;
@@ -80,8 +81,10 @@ public class RTSNetworkManager : NetworkManager
         if (SceneManager.GetActiveScene().name.StartsWith("Scene_Map"))
         {
             GameOverHandler gameOverHandlerInstance = Instantiate(gameOverHandler);
-
             NetworkServer.Spawn(gameOverHandlerInstance.gameObject);
+
+            Commander commanderInstance = Instantiate(commander);
+            NetworkServer.Spawn(commanderInstance.gameObject);
 
             foreach (RTSPlayer player in Players)
             {

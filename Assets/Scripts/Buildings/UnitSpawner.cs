@@ -59,8 +59,8 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
         NetworkServer.Destroy(gameObject);
     }
 
-    [Command]
-    private void CmdSpawnUnit()
+    [Command(requiresAuthority = false)]
+    public void CmdSpawnUnit()
     {
         if (queuedUnits == maxUnitQue)
         {
