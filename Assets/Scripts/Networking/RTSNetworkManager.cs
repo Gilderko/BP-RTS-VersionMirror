@@ -15,6 +15,25 @@ public class RTSNetworkManager : NetworkManager
 
     private bool isGameInProgress = false;
 
+
+    public override void Awake()
+    {
+        base.Awake();
+        Application.quitting += DeinitialiseNetwork;
+    }
+
+    private void DeinitialiseNetwork()
+    {
+        if (NetworkServer.active)
+        {
+            StopServer();
+        }
+        else
+        {
+            StopClient();
+        }
+    }
+
     #region Server
 
     [Server]

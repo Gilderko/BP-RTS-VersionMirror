@@ -24,14 +24,7 @@ public class GameOverDisplay : MonoBehaviour
 
     public void LeaveGame()
     {
-        if (NetworkServer.active && NetworkClient.isConnected)
-        {
-            NetworkManager.singleton.StopServer();
-        }
-        else
-        {
-            NetworkManager.singleton.StopClient();
-        }
+        Application.Quit();
     }
 
     private void ClientHandleGameOver(string playerName)
