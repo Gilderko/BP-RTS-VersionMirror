@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// The core component of this game. Created by deriving from the base NetworkManager.
+/// 
+/// Stores the players and handles logic related to new player connecting and disconnecting + starting the game.
+/// </summary>
 public class RTSNetworkManager : NetworkManager
 {
     [SerializeField] private GameObject playerBase = null;
@@ -14,7 +19,6 @@ public class RTSNetworkManager : NetworkManager
     public List<RTSPlayer> Players { get; } = new List<RTSPlayer>();
 
     private bool isGameInProgress = false;
-
 
     public override void Awake()
     {

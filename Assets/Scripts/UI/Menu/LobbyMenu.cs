@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// UI components that displays connected users.
+/// </summary>
 public class LobbyMenu : MonoBehaviour
 {
     [SerializeField] private GameObject lobbyUi;

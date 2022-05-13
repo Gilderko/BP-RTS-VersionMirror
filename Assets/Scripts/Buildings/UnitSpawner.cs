@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles spawning specific units assigned with a maximum que. Spawning happens on the server and is then replicated to clients.
+/// </summary>
 public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 {
     [SerializeField] private Health health = null;
@@ -13,7 +16,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     [SerializeField] private Image unitProgressImage = null;
     [SerializeField] private int maxUnitQue = 5;
     [SerializeField] private float spawnMoveRange = 7;
-    [SerializeField] private float unitSpawnDuration = 5f;
+    [SerializeField] private float unitTimeTillSpawn = 5f;
 
     [SyncVar(hook = nameof(ClientHandleQueuedUnitsUpdated))]
     private int queuedUnits = 0;
@@ -89,7 +92,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
         unitTimer += Time.deltaTime;
 
-        if (unitTimer < unitSpawnDuration)
+        if (unitTimer < unitTimeTillSpawn)
         {
             return;
         }
@@ -137,7 +140,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     [Client]
     private void UpdateTimerDisplay()
     {
-        float newProgress = unitTimer / unitSpawnDuration;
+        float newProgress = unitTimer / unitTimeTillSpawn;
 
         if (newProgress < unitProgressImage.fillAmount)
         {

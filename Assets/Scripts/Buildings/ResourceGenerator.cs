@@ -1,6 +1,9 @@
 using Mirror;
 using UnityEngine;
 
+/// <summary>
+/// Generates resources for the player that spawned it with certain interval and ammount per interval. Resource generation happens on the server.
+/// </summary>
 public class ResourceGenerator : NetworkBehaviour
 {
     [SerializeField] private Health health = null;

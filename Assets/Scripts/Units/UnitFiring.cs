@@ -1,6 +1,9 @@
 using Mirror;
 using UnityEngine;
 
+/// <summary>
+/// Takes care of instantiating projectiles when the enemy is close enough.
+/// </summary>
 public class UnitFiring : NetworkBehaviour
 {
     [SerializeField] private Targeter targeter = null;

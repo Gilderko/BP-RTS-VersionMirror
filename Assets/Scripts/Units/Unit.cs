@@ -3,6 +3,11 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Base component to all units. Includes references to all other components such as UnitMovement, Targeter and Health.
+/// 
+/// Includes events for unit selection that enable the sprite to show that unit is selected.
+/// </summary>
 public class Unit : NetworkBehaviour
 {
     [SerializeField] private UnitMovement unitMovement = null;

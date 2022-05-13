@@ -25,7 +25,6 @@ public class JoinLobbyMenu : MonoBehaviour
 
 #endif
 
-
     public void JoinCallback()
     {
         string address = addressInput.text;
