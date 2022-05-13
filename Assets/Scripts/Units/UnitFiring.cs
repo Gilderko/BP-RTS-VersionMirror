@@ -58,5 +58,5 @@ public class UnitFiring : NetworkBehaviour
         return (targeter.GetTarget().transform.position - transform.position).sqrMagnitude <= fireRange * fireRange;
     }
 
-#endregion
+    #endregion
 }

@@ -61,5 +61,5 @@ public class ResourceGenerator : NetworkBehaviour
 
 #endif
 
-#endregion
+    #endregion
 }

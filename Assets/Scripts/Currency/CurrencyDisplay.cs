@@ -18,8 +18,8 @@ public class CurrencyDisplay : MonoBehaviour
         {
             player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
             player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
-            ClientHandleResourcesUpdated(player.GetResources());            
-        }        
+            ClientHandleResourcesUpdated(player.GetResources());
+        }
     }
 
     private void OnDestroy()

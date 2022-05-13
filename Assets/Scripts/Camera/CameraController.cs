@@ -111,5 +111,5 @@ public class CameraController : NetworkBehaviour
         prevInput = ctx.ReadValue<Vector2>();
     }
 
-#endregion
+    #endregion
 }

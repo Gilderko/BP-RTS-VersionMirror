@@ -148,7 +148,7 @@ public class RTSPlayer : NetworkBehaviour
     [Server]
     public void SetPartyOwner(bool state)
     {
-        isPartyOwner = state;        
+        isPartyOwner = state;
     }
 
     [Server]
