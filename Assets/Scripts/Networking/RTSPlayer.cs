@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Abstraction on top of the connected user. Serves as the "PlayerPrefab" or the "PlayerObject".
+/// 
+/// Stores: resources, player name, session ownership, players Units and Buildings
+/// Also includes logic for checking if buildings can be placed, and setting synchronised variables.
+/// </summary>
 public class RTSPlayer : NetworkBehaviour
 {
     [SerializeField]
@@ -46,9 +52,13 @@ public class RTSPlayer : NetworkBehaviour
 
     private Color teamColor = new Color();
 
+    // On clients the other RTSPlayer units are empty, only the local player units are stored here
+    // On the server every RTSPlayer has his units stored here
     [SerializeField]
     private HashSet<Unit> myUnits = new HashSet<Unit>();
 
+    // On clients the other RTSPlayer buildings are empty, only the local player buildings are stored here
+    // On the server every RTSPlayer has his buildings stored here
     [SerializeField]
     private HashSet<Building> myBuildings = new HashSet<Building>();
 
@@ -138,7 +148,7 @@ public class RTSPlayer : NetworkBehaviour
     [Server]
     public void SetPartyOwner(bool state)
     {
-        isPartyOwner = state;        
+        isPartyOwner = state;
     }
 
     [Server]

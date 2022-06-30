@@ -2,6 +2,9 @@ using Mirror;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Displays the ammount of resources we have locally in UI.
+/// </summary>
 public class CurrencyDisplay : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI resourcesText = null;
@@ -15,8 +18,8 @@ public class CurrencyDisplay : MonoBehaviour
         {
             player = NetworkClient.connection.identity.GetComponent<RTSPlayer>();
             player.ClientOnResourcesUpdated += ClientHandleResourcesUpdated;
-            ClientHandleResourcesUpdated(player.GetResources());            
-        }        
+            ClientHandleResourcesUpdated(player.GetResources());
+        }
     }
 
     private void OnDestroy()

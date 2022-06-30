@@ -2,6 +2,9 @@ using Mirror;
 using System;
 using UnityEngine;
 
+/// <summary>
+/// The base for every player. Fires the event when it gets destroyed.
+/// </summary>
 public class UnitBase : NetworkBehaviour
 {
     [SerializeField] private Health health = null;
@@ -24,7 +27,7 @@ public class UnitBase : NetworkBehaviour
     [Server]
     public override void OnStopServer()
     {
-        base.OnStopServer();        
+        base.OnStopServer();
         health.ServerOnDie -= ServerHandleDeath;
         ServerOnBaseDespawned?.Invoke(this);
     }

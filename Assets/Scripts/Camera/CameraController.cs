@@ -2,6 +2,9 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Basic camera contoller works with keyboard and mouse. Works offline and instantiated with player to move the cinemachine camera.
+/// </summary>
 public class CameraController : NetworkBehaviour
 {
     [SerializeField] private Transform playerCameraTransform = null;
@@ -108,5 +111,5 @@ public class CameraController : NetworkBehaviour
         prevInput = ctx.ReadValue<Vector2>();
     }
 
-#endregion
+    #endregion
 }

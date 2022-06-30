@@ -2,6 +2,9 @@ using Mirror;
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Basic health component where all damage dealing is handled on server.
+/// </summary>
 public class Health : NetworkBehaviour
 {
     [SerializeField] private int maxHealth = 100;

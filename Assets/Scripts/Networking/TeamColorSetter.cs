@@ -1,6 +1,9 @@
 using Mirror;
 using UnityEngine;
 
+/// <summary>
+/// Needs to be added to every unit and building to distinguish their color. Color can be changed during the match and will be updated automatically.
+/// </summary>
 public class TeamColorSetter : NetworkBehaviour
 {
     [SerializeField] private Renderer[] colorRenderers = new Renderer[0];
